@@ -1,333 +1,425 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Anushree Umak | CS Grad & Developer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
-    <style>
-        * {
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        body {
-            cursor: url('images/default_arrow.cur'), auto;
-            background: url('images/background.jpg') no-repeat center center fixed;
-            background-size: cover;
-            margin: 0;
-            font-family: 'Press Start 2P', cursive;
-            color: #222;
-            letter-spacing: 0.8px;
-        }
+<title>Anushree Umak | Software Engineer</title>
 
+<style>
 
-        .navbar {
-            background: #f7eecb;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 2px solid #ddd;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+}
 
-        .nav-left {
-            font-weight: bold;
-        }
+:root{
+    --bg:#050816;
+    --card:rgba(15,23,42,0.75);
+    --border:#1e293b;
+    --primary:#22d3ee;
+    --secondary:#8b5cf6;
+    --text:#f8fafc;
+    --muted:#94a3b8;
+}
 
-        .nav-right a {
-            margin-left: 1.5rem;
-            text-decoration: none;
-            color: #222;
-        }
+body{
+    font-family:system-ui, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+}
 
-        .nav-right a:hover {
-            color: #ff6b6b;
-        }
+/* GRID BACKGROUND */
 
-        .hero {
-            text-align: center;
-            padding: 4rem 2rem;
-        }
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:
+        linear-gradient(rgba(34,211,238,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34,211,238,.06) 1px, transparent 1px);
+    background-size:40px 40px;
+    z-index:-2;
+}
 
-        .hero h1 {
-            font-size: 1.5rem;
-        }
+body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(34,211,238,.12), transparent 35%),
+        radial-gradient(circle at 80% 40%, rgba(139,92,246,.12), transparent 35%);
+    z-index:-1;
+}
 
-        .hero p {
-            font-size: 0.8rem;
-            margin: 1rem 0;
-        }
+/* NAV */
 
-        .cta {
-            background: #ffcc5c;
-            padding: 0.5rem 1rem;
-            display: inline-block;
-            margin-top: 1rem;
-            color: #000;
-            text-decoration: none;
-            border-radius: 4px;
-        }
+nav{
+    position:sticky;
+    top:0;
+    backdrop-filter:blur(15px);
+    background:rgba(5,8,22,.85);
+    border-bottom:1px solid var(--border);
+    padding:1rem 8%;
+    display:flex;
+    justify-content:space-between;
+    z-index:100;
+}
 
-        section {
-            padding: 2rem;
-            max-width: 1000px;
-            margin: auto;
-        }
+.logo{
+    color:var(--primary);
+    font-weight:700;
+    letter-spacing:2px;
+}
 
-        section h2 {
-            font-size: 1rem;
-            margin-bottom: 1rem;
-        }
+.nav-links a{
+    color:var(--text);
+    text-decoration:none;
+    margin-left:1.5rem;
+}
 
-        .card {
-            background: #fff;
-            border: 2px dashed #aaa;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-        }
+.nav-links a:hover{
+    color:var(--primary);
+}
 
-        .card {
-            line-height: 1.8;
-            padding: 1.5rem;
-        }
+/* HERO */
 
+.hero{
+    min-height:90vh;
+    display:flex;
+    align-items:center;
+    padding:4rem 8%;
+}
 
-        .project-carousel {
-            position: relative;
-            overflow: hidden;
-            width: 100%;
-        }
+.status{
+    display:inline-block;
+    padding:.5rem 1rem;
+    border:1px solid rgba(34,211,238,.3);
+    color:var(--primary);
+    background:rgba(34,211,238,.1);
+    border-radius:999px;
+    margin-bottom:2rem;
+}
 
-        .project-slider {
-            display: flex;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            gap: 1rem;
-            padding: 1rem 0;
-            scroll-snap-type: x mandatory;
+h1{
+    font-size:3rem;
+    margin-bottom:1rem;
+}
 
-        }
+.highlight{
+    color:var(--primary);
+}
 
-        .project-card {
-            flex: 0 0 250px;
-            background: #fff;
-            border: 2px dashed #aaa;
-            padding: 1rem;
-            text-align: center;
-            scroll-snap-align: start;
-        }
+.hero p{
+    color:var(--muted);
+    max-width:700px;
+    line-height:1.6;
+}
 
-        .project-slider::-webkit-scrollbar {
-            display: none;
-        }
+/* SECTIONS */
 
+section{
+    padding:5rem 8%;
+}
 
-        .project-card img {
-            width: 100%;
-            max-height: 200px;
-            /* increase from 140 */
-            object-fit: contain;
-            /* switch from cover if you want full image */
-            margin-top: 0.5rem;
-            cursor: pointer;
-        }
+.section-title{
+    font-size:1.6rem;
+    margin-bottom:2rem;
+}
 
+/* CARDS */
 
-        .carousel-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 1rem;
-        }
+.card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:1.5rem;
+    margin-bottom:1.5rem;
+    backdrop-filter:blur(10px);
+    transition:.3s;
+}
 
-        .carousel-buttons button {
-            font-family: 'Press Start 2P', cursive;
-            background: #ffcc5c;
-            border: none;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-        }
+.card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 0 25px rgba(34,211,238,.12);
+}
 
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background: #f7eecb;
-            font-size: 0.7rem;
-            color: #333;
-        }
+/* GRID */
 
-        footer a {
-            color: #000;
-            text-decoration: underline;
-        }
-    </style>
+.grid{
+    display:grid;
+    gap:1rem;
+}
+
+.grid-4{
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+}
+
+/* SKILLS */
+
+.skills{
+    display:flex;
+    flex-wrap:wrap;
+    gap:.7rem;
+}
+
+.skill{
+    padding:.6rem 1rem;
+    border-radius:999px;
+    border:1px solid rgba(34,211,238,.3);
+    color:var(--primary);
+    background:rgba(34,211,238,.08);
+}
+
+/* TIMELINE */
+
+.timeline{
+    border-left:2px solid var(--primary);
+    padding-left:1.5rem;
+}
+
+.item{
+    margin-bottom:2rem;
+}
+
+.item::before{
+    content:"";
+    width:10px;
+    height:10px;
+    background:var(--primary);
+    border-radius:50%;
+    position:absolute;
+    margin-left:-1.9rem;
+    margin-top:.4rem;
+}
+
+/* CONTACT */
+
+a{
+    color:var(--primary);
+    text-decoration:none;
+}
+
+footer{
+    text-align:center;
+    padding:3rem;
+    color:var(--muted);
+}
+
+</style>
+
 </head>
 
 <body>
 
-    <nav class="navbar">
-        <div class="nav-left">Anushree Umak</div>
-        <div class="nav-right">
-            <a href="#about">About</a>
-            <a href="#experience">Experience</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
-        </div>
-    </nav>
+<nav>
+    <div class="logo">ANUSHREE UMAK</div>
+    <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+    </div>
+</nav>
 
-    <section class="hero">
-        <h1>Hi, I'm Anushree</h1>
-        <p>Computer Science Grad • Full Stack Dev • AI/NLP Enthusiast • Curious Human</p>
-        <a class="cta" href="#projects">See My Work</a>
-    </section>
+<div class="hero">
 
-    <section id="about">
-        <h2>About Me</h2>
-        <div class="card">
-            <p>I'm a 2025 Computer Science graduate from Dublin City University with First-Class Honours. I love
-                building smart tools that make life easier — from resume parsers to real-time backend monitors.</p>
-            <p>Passionate about DevOps, distributed systems, and resilient backend design. I also have a lifelong
-                curiosity about cybersecurity and infrastructure automation.</p>
-        </div>
-    </section>
+<div>
+<div class="status">SYSTEM ONLINE • SOFTWARE ENGINEER</div>
 
-    <section id="experience">
-        <h2>Experience</h2>
-        <div class="card">
-            <strong>Fidelity Investments</strong> — <em>Full Stack Software Intern</em><br />
-            <strong>Mar 2024 – Aug 2024</strong><br />
-            Built and deployed full-stack backend monitoring dashboards. Improved CI/CD visibility and automated QA
-            validation.
-        </div>
-        <div class="card">
-            <strong>Preply</strong> — <em>Private Tutor</em><br />
-            <strong>Jan 2025 – Present</strong><br />
-            Tutoring global students in Python, Java, and software engineering fundamentals with a focus on clarity and
-            confidence.
-        </div>
-        <div class="card">
-            <strong>Dublin City University</strong> — <em>Teaching Assistant</em><br />
-            <strong>2023 – 2025</strong><br />
-            Supported first- and second-year students with Python, Java, graphics and systems programming.
-        </div>
-    </section>
+<h1>Anushree Umak</h1>
 
-    <section id="projects">
-        <h2>Projects</h2>
-        <div class="project-carousel">
-            <div class="project-slider" id="slider">
-                <div class="project-card">
-                    <strong>HireTrack</strong><br />
-                    <small>2024 – 2025</small>
-                    <p>AI-powered CV editor and job matching platform.</p>
-                    <a href="https://github.com/Anumak77/4yp-hiretrack" target="_blank">
-                        <img src="images/hiretrack.png" alt="HireTrack screenshot">
-                    </a>
-                </div>
-                <div class="project-card">
-                    <strong>AI Text Parser</strong><br />
-                    <small>2023</small>
-                    <p>spaCy + scikit-learn doc parser for structured data extraction.</p>
-                    <a target="_blank">
-                        <img src="images/aitext.png" alt="AI Text Parser screenshot">
-                    </a>
-                </div>
-                <div class="project-card">
-                    <strong>No-Code Web Builder</strong><br />
-                    <small>2022</small>
-                    <p>Drag-drop tool for creating HTML/CSS sites without coding.</p>
-                    <a href="https://github.com/Anumak77/Codease" target="_blank">
-                        <img src="images/nocode.png" alt="Web Builder screenshot">
-                    </a>
-                </div>
-                <div class="project-card">
-                    <strong>Team Scheduler</strong><br />
-                    <small>2024 · Prolog · CA208 Coursework</small>
-                    <p>Simple Prolog script to auto-generate valid tournament matchups.</p>
-                    <a href="https://github.com/Anumak77/team-scheduler-prolog" target="_blank">
-                        <img src="images/team.png" alt="Team Scheduler screenshot">
-                    </a>
-                </div>
-                <div class="project-card">
-                    <strong>MyShell</strong><br />
-                    <small>2023 · C · OS Coursework</small>
-                    <p>Custom shell that executes internal/external commands and supports batch + background jobs.</p>
-                    <a href="https://github.com/Anumak77/myShell" target="_blank">
-                        <img src="images/myshell.png" alt="MyShell screenshot">
-                    </a>
-                </div>
-                <div class="project-card">
-                    <strong>Upcoming Projects</strong><br />
-                    <small>2025</small>
-                    <p>Skincare app + Gamefolio (RPG-style personal site)</p>
-                    <img src="images/upcoming.png" alt="Upcoming Projects">
-                </div>
-            </div>
-            <div class="carousel-buttons">
-                <button onclick="scrollSlider(-1)">&larr;</button>
-                <button onclick="scrollSlider(1)">&rarr;</button>
-            </div>
-        </div>
-        </div>
-    </section>
+<p>
+Associate Software Engineer at Fidelity Investments.
+Cloud infrastructure • Platform engineering • DevOps • AI systems.
+Building scalable and reliable software using AWS, Kubernetes,
+OpenTofu and CI/CD pipelines.
+</p>
 
-    <section>
-        <h2>Awards & Achievements</h2>
-        <div class="card">
-            <ul>
-                <li>3x Gold: Relay & 200m (Nationals)</li>
-                <li>Top 10% at DCU (First-Class Honours)</li>
-                <li>Maths, Science & English Awards (UK schools)</li>
-            </ul>
-        </div>
-    </section>
+</div>
 
-    <section>
-        <h2>Leadership & Volunteering</h2>
-        <div class="card">
-            <ul>
-                <li>Class Representative (DCU, 2021–2025)</li>
-                <li>Graphics Design Officer (Redbrick Society, 2022–2023)</li>
-                <li>Vice Chair (Galstem DCU, 2022–2023)</li>
-                <li>Freelance Web Designer (Fiverr, 2025–Present)</li>
-                <li>Led mock interviews, AI ethics events & STEM workshops</li>
-            </ul>
-        </div>
-    </section>
+</div>
 
-    <section>
-        <h2>Certificates (Coming Soon)</h2>
-        <div class="card">
-            AWS, Docker, Security, and more in progress!
-        </div>
-    </section>
+<section id="about">
 
-    <section id="contact">
-        <h2>Contact Me</h2>
-        <div class="card">
-            <p>Email: <a href="mailto:umakanu6@gmail.com">umakanu6@gmail.com</a></p>
-            <p>GitHub: <a href="https://github.com/Anumak77" target="_blank">github.com/Anumak77</a></p>
-            <p>LinkedIn: <a href="https://linkedin.com/in/anushree-umak-019175227" target="_blank">anushree-umak</a></p>
-        </div>
-    </section>
+<h2 class="section-title">About</h2>
 
-    <footer>
-        <p>Made with ☕ and dreams · © 2025 Anushree Umak · <a href="mailto:umakanu6@gmail.com">Email Me</a></p>
-    </footer>
+<div class="card">
 
-    <script>
-        function scrollSlider(direction) {
-            const slider = document.getElementById('slider');
-            const cardWidth = 270;
-            slider.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
-        }
-    </script>
+Computer Science graduate from Dublin City University with First-Class Honours.
+Strong focus on cloud infrastructure, distributed systems and automation.
 
+Currently working on platform engineering and developer tooling at Fidelity Investments,
+building CI/CD pipelines, Kubernetes infrastructure and automation systems.
+
+Interested in DevOps, cybersecurity, AI systems and scalable backend architecture.
+
+</div>
+
+</section>
+
+<section id="skills">
+
+<h2 class="section-title">Technical Skills</h2>
+
+<div class="skills">
+<div class="skill">Python</div>
+<div class="skill">TypeScript</div>
+<div class="skill">Java</div>
+<div class="skill">AWS</div>
+<div class="skill">Kubernetes</div>
+<div class="skill">Docker</div>
+<div class="skill">OpenTofu</div>
+<div class="skill">Jenkins</div>
+<div class="skill">GitHub Actions</div>
+<div class="skill">Helm</div>
+<div class="skill">Flask</div>
+<div class="skill">Node.js</div>
+<div class="skill">PostgreSQL</div>
+<div class="skill">MongoDB</div>
+<div class="skill">Playwright</div>
+<div class="skill">PyTest</div>
+<div class="skill">PHP</div>
+<div class="skill">MySQL</div>
+</div>
+
+</section>
+
+<section id="experience">
+
+<h2 class="section-title">Experience</h2>
+
+<div class="timeline">
+
+<div class="item">
+<h3>Associate Software Engineer · Fidelity Investments</h3>
+<p>May 2026 – Present</p>
+<p>Cloud infrastructure, Kubernetes, AWS, CI/CD pipelines, automation tooling.</p>
+</div>
+
+<div class="item">
+<h3>LEAP Associate Software Engineer · Fidelity Investments</h3>
+<p>Jan 2026 – May 2026</p>
+<p>Graduate program focused on Agile delivery, full-stack development and engineering practices.</p>
+</div>
+
+<div class="item">
+<h3>Full Stack Engineer · Topper Technology</h3>
+<p>Sep 2025 – Jan 2026</p>
+<p>Built and maintained PHP/MySQL production systems and UI features in a startup environment.</p>
+</div>
+
+<div class="item">
+<h3>Lab Tutor (SQL) · DCU</h3>
+<p>Jan 2025 – May 2025</p>
+<p>Supported students in SQL workshops, debugging queries and explaining database concepts.</p>
+</div>
+
+<div class="item">
+<h3>Teacher · ISE Ireland</h3>
+<p>Mar 2025</p>
+<p>Designed and delivered English learning programs for international students.</p>
+</div>
+
+<div class="item">
+<h3>Software Engineer Intern · Fidelity Investments</h3>
+<p>Mar 2024 – Aug 2024</p>
+<p>Worked on Angular and Java systems. Migrated Cypress → Playwright and improved CI/CD testing pipelines.</p>
+</div>
+
+<div class="item">
+<h3>Teaching Assistant · Olus Education</h3>
+<p>Nov 2023 – Feb 2024</p>
+<p>Taught Java, OOP, HTML/CSS and supported students with debugging and assignments.</p>
+</div>
+
+</div>
+
+</section>
+
+<section id="projects">
+
+<h2 class="section-title">Projects</h2>
+
+<div class="card">
+<h3>HireTrack</h3>
+<p>AI recruitment platform using React, Flask, Firebase and spaCy. 85% resume extraction accuracy.</p>
+</div>
+
+<div class="card">
+<h3>Document Classifier</h3>
+<p>NLP + ML system achieving 97% precision in document classification.</p>
+</div>
+
+<div class="card">
+<h3>Codease</h3>
+<p>No-code website builder for drag-and-drop HTML/CSS creation.</p>
+</div>
+
+<div class="card">
+<h3>MyShell</h3>
+<p>C-based shell supporting commands, processes and background execution.</p>
+</div>
+
+<div class="card">
+<h3>Team Scheduler</h3>
+<p>Prolog-based automated tournament scheduling system.</p>
+</div>
+
+</section>
+
+<section>
+
+<h2 class="section-title">Leadership & Volunteering</h2>
+
+<div class="grid grid-4">
+
+<div class="card">
+<h3>Class Representative</h3>
+<p>Represented 200+ students (2021–2025)</p>
+</div>
+
+<div class="card">
+<h3>Vice Chair · GalSTEM</h3>
+<p>Organised STEM outreach and mentorship programs</p>
+</div>
+
+<div class="card">
+<h3>Graphic Design Officer</h3>
+<p>Redbrick society branding and UI design</p>
+</div>
+
+<div class="card">
+<h3>STEM Events</h3>
+<p>50+ events in AI, ethics and tech outreach</p>
+</div>
+
+</div>
+
+</section>
+
+<section id="contact">
+
+<h2 class="section-title">Contact</h2>
+
+<div class="card">
+
+<p>Email: <a href="mailto:umakanu6@gmail.com">umakanu6@gmail.com</a></p>
+<p>Phone: +353 85 287 4023</p>
+<p>GitHub: <a href="https://github.com/Anumak77">github.com/Anumak77</a></p>
+<p>LinkedIn: <a href="https://linkedin.com/in/anushree-umak-019175227">LinkedIn Profile</a></p>
+
+</div>
+
+</section>
+
+<footer>
+Built by Anushree Umak • 2026
+</footer>
 
 </body>
-
 </html>
